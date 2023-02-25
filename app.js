@@ -23,6 +23,10 @@ app.use((req, res, next) => {
   next();
 });
 
+const studentRouter = require('./router/students');
+
+app.use('/', studentRouter);
+
 app.use((error, req, res, next) => {
   const data = error.data;
   const message = error.message;
