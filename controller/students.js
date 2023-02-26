@@ -33,3 +33,20 @@ exports.create = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getAll = async (req, res, next) => {
+  try {
+    const students = await Student.find();
+    if (!students) {
+      const error = new Error('Students Not Found');
+      error.status = 404;
+      throw error;
+    }
+    res.status(200).json({ message: 'Students Fecthed', students });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
