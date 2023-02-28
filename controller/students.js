@@ -51,6 +51,25 @@ exports.getAll = async (req, res, next) => {
   }
 };
 
+exports.getById = async (req, res, next) => {
+  try {
+    const studentId = req.params.id;
+
+    const student = await Student.findById(studentId);
+    if (!student) {
+      const error = new Error('Student Not Found');
+      error.status = 404;
+      throw error;
+    }
+    res.status(200).json({ message: 'Student Fetched', student });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
+
 exports.update = async (req, res, next) => {
   try {
     const studentId = req.params.id;
