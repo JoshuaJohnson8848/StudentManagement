@@ -24,8 +24,10 @@ app.use((req, res, next) => {
 });
 
 const studentRouter = require('./router/students');
+const adminRouter = require('./router/admin');
 
 app.use('/', studentRouter);
+app.use('/admin', adminRouter);
 
 app.use((error, req, res, next) => {
   const data = error.data;
