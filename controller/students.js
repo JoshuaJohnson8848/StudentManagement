@@ -106,3 +106,22 @@ exports.update = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteById = async (req, res, next) => {
+  try {
+    const studId = req.params.id;
+
+    const deletedStudent = await Student.findByIdAndRemove(studId);
+    if (!deletedStudent) {
+      const error = new Error('Student Not Created');
+      error.status = 422;
+      throw error;
+    }
+    res.status(200).json({ message: 'Student Deleted' });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
