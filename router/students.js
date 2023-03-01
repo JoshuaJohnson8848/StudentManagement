@@ -13,4 +13,6 @@ router.put('/:id', studentController.update);
 
 router.delete('/:id', studentController.deleteById);
 
+router.delete('/', studentController.deleteAll);
+
 module.exports = router;

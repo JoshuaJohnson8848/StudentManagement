@@ -125,3 +125,20 @@ exports.deleteById = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteAll = async (req, res, next) => {
+  try {
+    const deletedStudents = await Student.deleteMany();
+    if (!deletedStudents) {
+      const error = new Error('Student Not Created');
+      error.status = 422;
+      throw error;
+    }
+    res.status(200).json({ message: 'Deleted All Students' });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
